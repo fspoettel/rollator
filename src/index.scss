@@ -1,5 +1,5 @@
 //////////////////////////////
-// ROLLATOR v0.1.0
+// ROLLATOR v0.1.4
 //////////////////////////////
 
 $rltr-horizontal-fontsize: 0.5em;
@@ -21,6 +21,7 @@ $rltr-horizontal-fontsize: 0.5em;
   left: 0;
   pointer-events: none;
   visibility: hidden;
+  text-align: center;
   white-space: nowrap;
 }
 
@@ -34,14 +35,14 @@ $rltr-horizontal-fontsize: 0.5em;
 
 .rltr-group.is-horizontal > .rltr-group_value {
   display: inline-block;
-  width: $rltr-horizontal-fontsize;
   top: 100%;
   left: 50%;
-  margin-left: -$rltr-horizontal-fontsize / 2;
   font-size: $rltr-horizontal-fontsize;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  pointer-events: all;
+  transform: translateX(-50%);
   white-space: normal;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
 }
 
 .rltr-group.is-horizontal.is-active > .rltr-group_anchor {

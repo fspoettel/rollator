@@ -40,14 +40,12 @@ Tagnames are flexible, but please make sure the classes are following the patter
 ```css
 .rltr {
   position: relative;
-  display: inline-block;
-}
+  display: inline-block; }
 
 .rltr-group {
   position: relative;
   display: inline-block;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .rltr-group_value {
   position: absolute;
@@ -55,31 +53,30 @@ Tagnames are flexible, but please make sure the classes are following the patter
   left: 0;
   pointer-events: none;
   visibility: hidden;
-  white-space: nowrap;
-}
+  text-align: center;
+  white-space: nowrap; }
 
 .rltr.is-hovered .rltr-group_anchor {
-  visibility: hidden;
-}
+  visibility: hidden; }
 
 .rltr-group.is-active > .rltr-group_value {
-  visibility: visible;
-}
+  visibility: visible; }
 
 .rltr-group.is-horizontal > .rltr-group_value {
   display: inline-block;
-  width: 0.5em;
   top: 100%;
   left: 50%;
-  margin-left: -0.25em;
   font-size: 0.5em;
-  word-break: break-all;
+  pointer-events: all;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   white-space: normal;
-}
+  -ms-writing-mode: tb-lr;
+  -webkit-writing-mode: vertical-lr;
+          writing-mode: vertical-lr; }
 
 .rltr-group.is-horizontal.is-active > .rltr-group_anchor {
-  visibility: visible;
-}
+  visibility: visible; }
 ```
 The CSS in `/lib` is compiled from `src/index.scss` which holds a couple of core styles and a default theme. The core CSS is outlined above. It is recommended to import `lib/rollator.css` or `src/index.scss` into your build system.
 To use the default-theme, add `.rltr--default` to your container. You can configure some aspects of the plugin / default-theme in the SCSS-File.
@@ -137,6 +134,5 @@ Webfonts can take a while to load and change the dimensions of your text. Theref
 
 ### Caveats / TODO
  - Rollator replaces normal spaces with `&nbsp;`-spaces to make the horizontal-mode work.
- - Horizontal text is aligned to the left.
  - TODO: Unit Tests are not written yet.
  - TODO: Link handling on touch devices

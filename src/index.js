@@ -1,5 +1,5 @@
 
-/* ! rollator v0.1.0
+/* ! rollator v0.1.4
  * https://github.com/fspoettel/rollator.js
  * Copyright (c) 2016 Felix Spöttel; Released under the MIT License
  */
