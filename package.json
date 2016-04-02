@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fspoettel/rollator.js.git"
+    "url": "git+https://github.com/fspoettel/rollator.git"
   },
   "keywords": [
     "overlay",
@@ -21,9 +21,9 @@
   "author": "Felix Spöttel",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fspoettel/rollator.js/issues"
+    "url": "https://github.com/fspoettel/rollator/issues"
   },
-  "homepage": "https://github.com/fspoettel/rollator.js#readme",
+  "homepage": "https://github.com/fspoettel/rollator#readme",
   "dependencies": {
     "component-classes": "^1.2.6",
     "core-js": "^2.2.1",
