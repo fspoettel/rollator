@@ -39,7 +39,8 @@ $rltr-horizontal-fontsize: 0.5em;
   left: 50%;
   margin-left: -$rltr-horizontal-fontsize / 2;
   font-size: $rltr-horizontal-fontsize;
-  word-break: break-all;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   white-space: normal;
 }
 
