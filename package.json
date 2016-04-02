@@ -1,6 +1,6 @@
 {
   "name": "rollator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Overlay matching words on hover",
   "main": "lib/index.js",
   "scripts": {
