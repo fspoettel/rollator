@@ -1,0 +1,95 @@
+//////////////////////////////
+// ROLLATOR v0.1.0
+//////////////////////////////
+
+$rltr-horizontal-fontsize: 0.5em;
+
+.rltr {
+  position: relative;
+  display: inline-block;
+}
+
+.rltr-group {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.rltr-group_value {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+.rltr.is-hovered .rltr-group_anchor {
+  visibility: hidden;
+}
+
+.rltr-group.is-active > .rltr-group_value {
+  visibility: visible;
+}
+
+.rltr-group.is-horizontal > .rltr-group_value {
+  display: inline-block;
+  width: $rltr-horizontal-fontsize;
+  top: 100%;
+  left: 50%;
+  margin-left: -$rltr-horizontal-fontsize / 2;
+  font-size: $rltr-horizontal-fontsize;
+  word-break: break-all;
+  white-space: normal;
+}
+
+.rltr-group.is-horizontal.is-active > .rltr-group_anchor {
+  visibility: visible;
+}
+
+//////////////////////////////
+// ROLLATOR DEFAULT THEME
+//////////////////////////////
+
+$rltr-default-fontweight: 400;
+$rltr-default-fontweight-active: 700;
+$rltr-default-opacity-inactive: 0.15;
+
+.rltr--default {
+  font-weight: $rltr-default-fontweight;
+  text-transform: uppercase;
+}
+
+.rltr--default .rltr-group_value {
+  opacity: 0;
+  transition: 0.175s all ease-out;
+}
+
+.rltr--default .rltr-group_anchor {
+  opacity: 1;
+  transition: 0.175s all ease-in;
+}
+
+.rltr--default.is-hovered .rltr-group_anchor {
+  visibility: visible;
+  opacity: $rltr-default-opacity-inactive;
+  transition: 0.175s all ease-out;
+}
+
+.rltr--default .rltr-group.is-active > .rltr-group_value {
+  opacity: 1;
+  transition: 0.175s opacity ease-in;
+}
+
+.rltr--default .rltr-group.is-active [data-rltr="match"] {
+  font-weight: $rltr-default-fontweight-active;
+}
+
+.rltr--default .rltr-group.is-horizontal.is-active > .rltr-group_anchor {
+  visibility: visible;
+  opacity: 1;
+}
+
+.rltr--default .rltr-group.is-horizontal.is-active [data-rltr] {
+  font-weight: $rltr-default-fontweight;
+}
