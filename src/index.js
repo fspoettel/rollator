@@ -20,8 +20,8 @@ import isString from 'lodash.isstring';
  * Private Variables & Functions
  */
 
-const doc = document;
 const win = window;
+const doc = win.document;
 
 // Log a decorated warning
 // @returns x-offset
@@ -130,15 +130,20 @@ Rollator.prototype.destroy = function destroy() {
  */
 
 // Bind a hover to a letter
-Rollator.prototype._bind = function _bind(letter) {
-  letter.context.addEventListener('mouseover', this._onMouseOver);
-  letter.context.addEventListener('mouseout', this._onMouseOut);
+Rollator.prototype._bind = function _bind(_letter) {
+  const letter = _letter;
+
+  letter.onMouseEnter = this._onMouseEnter.bind(this);
+  letter.onMouseLeave = this._onMouseLeave.bind(this);
+
+  letter.context.addEventListener('mouseenter', letter.onMouseEnter);
+  letter.context.addEventListener('mouseleave', letter.onMouseLeave);
 };
 
 // Unbind hovers from a letter
 Rollator.prototype._unbind = function _unbind(letter) {
-  letter.context.removeEventListener('mouseover', this._onMouseOver);
-  letter.context.removeEventListener('mouseout', this._onMouseOut);
+  letter.context.removeEventListener('mouseenter', letter.onMouseEnter);
+  letter.context.removeEventListener('mouseleave', letter.onMouseLeave);
 };
 
 // Resize Callback
@@ -161,18 +166,17 @@ Rollator.prototype._onResize = function _onResize(_instance) {
   }, 200);
 };
 
-// Mouseout callback
 // TODO: Maybe use closest() to find container instead of parentNode
-Rollator.prototype._onMouseOut = function _onMouseOut() {
-  classes(this).remove('is-active');
-  classes(this.parentNode).remove('is-hovered');
+Rollator.prototype._onMouseEnter = function _onMouseEnter(e) {
+  classes(e.currentTarget).add('is-active');
+  classes(e.currentTarget.parentNode).add('is-hovered');
 };
 
-// Mouseover Callback
+// Mouseleave callback
 // TODO: Maybe use closest() to find container instead of parentNode
-Rollator.prototype._onMouseOver = function _onMouseOver() {
-  classes(this).add('is-active');
-  classes(this.parentNode).add('is-hovered');
+Rollator.prototype._onMouseLeave = function _onMouseLeave(e) {
+  classes(e.currentTarget).remove('is-active');
+  classes(e.currentTarget.parentNode).remove('is-hovered');
 };
 
 /*
