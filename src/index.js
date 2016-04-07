@@ -13,6 +13,7 @@
 import 'core-js/fn/Object/assign';
 
 import classes from 'component-classes';
+import emitter from 'component-emitter';
 import forEach from 'lodash.foreach';
 import isString from 'lodash.isstring';
 
@@ -72,6 +73,8 @@ const Rollator = function Rollator(el, opts) {
   this.opts = Object.assign({}, defaults, opts);
 };
 
+emitter(Rollator.prototype);
+
 /*
  * Public Interface
  */
@@ -110,6 +113,8 @@ Rollator.prototype.init = function init() {
     }
   });
 
+  this.emit('init');
+
   return this;
 };
 
@@ -123,6 +128,8 @@ Rollator.prototype.destroy = function destroy() {
     });
     win.removeEventListener('resize', instance.resizeListener);
   });
+
+  this.emit('destroy');
 };
 
 /*
@@ -166,10 +173,12 @@ Rollator.prototype._onResize = function _onResize(_instance) {
   }, 200);
 };
 
+// Mouseenter Callback
 // TODO: Maybe use closest() to find container instead of parentNode
 Rollator.prototype._onMouseEnter = function _onMouseEnter(e) {
   classes(e.currentTarget).add('is-active');
   classes(e.currentTarget.parentNode).add('is-hovered');
+  this.emit('mouseenter', e.currentTarget);
 };
 
 // Mouseleave callback
@@ -177,6 +186,7 @@ Rollator.prototype._onMouseEnter = function _onMouseEnter(e) {
 Rollator.prototype._onMouseLeave = function _onMouseLeave(e) {
   classes(e.currentTarget).remove('is-active');
   classes(e.currentTarget.parentNode).remove('is-hovered');
+  this.emit('mouseleave', e.currentTarget);
 };
 
 /*
