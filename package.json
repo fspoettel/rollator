@@ -1,6 +1,6 @@
 {
   "name": "rollator",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Overlay matching words on hover",
   "main": "lib/index.js",
   "scripts": {
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/fspoettel/rollator#readme",
   "dependencies": {
     "component-classes": "^1.2.6",
+    "component-emitter": "^1.2.0",
     "core-js": "^2.2.1",
     "lodash.foreach": "^4.1.1",
     "lodash.isstring": "^4.0.1"
