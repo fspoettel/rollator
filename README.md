@@ -92,10 +92,21 @@ To use the default-theme, add `.rltr--default` to your container. You can config
 
 `rollator.destroy()` Destroys all rollator-instances for a given behavior and unbinds all event-listeners
 
+`rollator.on()` Every rollator is [an event emitter](https://github.com/component/emitter). You can bind to events via `.on()`. See below for available events.
+
+`rollator.off()` You can unbind listeners via `.off()`.
+
 ### Config
 
  - `horizontalOn: 0` px-value that determines when the plugin should fall back to an all-horizontal display-mode
  - `caseSensitive: false` determines if string-matching should take letter-case into consideration
+
+### Events:
+
+ - `init (context)` fires when the plugin is done initializing. Gets passed the plugin context.
+ - `destroy` fires when the plugin is destroyed
+ - `mouseenter (node)` fires when the mouse enters a group. Gets passed the node.
+ - `mouseleave (node)` fires when the mouse leaves a group. Gets passed the node.
 
 ### Webfonts
 
