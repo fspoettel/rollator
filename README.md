@@ -62,7 +62,7 @@ Tagnames are flexible, but please make sure the classes are following the patter
 .rltr-group.is-active > .rltr-group_value {
   visibility: visible; }
 
-.rltr-group.is-horizontal > .rltr-group_value {
+.rltr-group.is-vertical > .rltr-group_value {
   display: inline-block;
   top: 100%;
   left: 50%;
@@ -75,7 +75,7 @@ Tagnames are flexible, but please make sure the classes are following the patter
   -webkit-writing-mode: vertical-lr;
           writing-mode: vertical-lr; }
 
-.rltr-group.is-horizontal.is-active > .rltr-group_anchor {
+.rltr-group.is-vertical.is-active > .rltr-group_anchor {
   visibility: visible; }
 ```
 The CSS in `/lib` is compiled from `src/index.scss` which holds a couple of core styles and a default theme. The core CSS is outlined above. It is recommended to import `lib/rollator.css` or `src/index.scss` into your build system.
@@ -98,7 +98,7 @@ To use the default-theme, add `.rltr--default` to your container. You can config
 
 ### Config
 
- - `horizontalOn: 0` px-value that determines when the plugin should fall back to an all-horizontal display-mode
+ - `verticalOn: 0` px-value that determines when the plugin should fall back to an all-vertical display-mode
  - `caseSensitive: false` determines if string-matching should take letter-case into consideration
 
 ### Events:
@@ -143,7 +143,11 @@ ready(() => {
 ```
 Webfonts can take a while to load and change the dimensions of your text. Therefore, it is recommended to wait for them to finish loading before calling `rollator.init()`. The example above shows how to do this in a future-proof way. (The polyfills for promises / FontFaceObserver can be removed once there is enough native browser-support for those features)
 
+### Unit Tests:
+
+You can run unit tests for non-DOM methods by running `npm install` and `npm run test`. The tested methods are marked as arrow-functions in the library (methods with DOM-access are marked as normal functions).
+
 ### Caveats / TODO
- - Rollator replaces normal spaces with `&nbsp;`-spaces to make the horizontal-mode work.
- - TODO: Unit Tests are not written yet.
+ - Rollator replaces normal spaces with `&nbsp;`-spaces to make the vertical-mode work.
+ - TODO: Unit Tests for DOM functionality are not written yet.
  - TODO: Link handling on touch devices

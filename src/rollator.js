@@ -1,5 +1,5 @@
 
-/* ! rollator v0.2.0
+/* ! rollator v0.2.1
  * https://github.com/fspoettel/rollator.js
  * Copyright (c) 2016 Felix Spöttel; Released under the MIT License
  */
@@ -20,9 +20,6 @@ import isString from 'lodash.isstring';
 /*
  * Private Variables & Functions
  */
-
-const win = window;
-const doc = win.document;
 
 // Log a decorated warning
 // @returns x-offset
@@ -45,8 +42,8 @@ const _getX = ($node) => {
 // TODO: Use DOMParser once it is better supported
 // @returns node
 const _toDOM = (str) => {
-  const frag = doc.createDocumentFragment();
-  const tmp = doc.createElement('div');
+  const frag = document.createDocumentFragment();
+  const tmp = document.createElement('div');
   tmp.innerHTML = str;
   const children = tmp.children;
 
@@ -68,7 +65,7 @@ const Rollator = function Rollator(el, opts) {
 
   const defaults = {
     caseSensitive: false,
-    horizontalOn: 0
+    verticalOn: 0
   };
   this.opts = Object.assign({}, defaults, opts);
 };
@@ -82,7 +79,7 @@ emitter(Rollator.prototype);
 // Initialize the plugin
 // @returns state-context
 Rollator.prototype.init = function init() {
-  const $instances = doc.querySelectorAll(this.container);
+  const $instances = document.querySelectorAll(this.container);
 
   if ($instances.length <= 0) {
     _warn(`${this.container} does not exist on page, but init() was called on it.`);
@@ -107,7 +104,7 @@ Rollator.prototype.init = function init() {
       instance.resizeTimer = null;
       instance.isResizing = false;
 
-      win.addEventListener('resize', instance.resizeListener);
+      window.addEventListener('resize', instance.resizeListener);
 
       this.instances.push(instance);
     }
@@ -126,7 +123,7 @@ Rollator.prototype.destroy = function destroy() {
       this._unbind(letter);
       this._removeTransform(letter);
     });
-    win.removeEventListener('resize', instance.resizeListener);
+    window.removeEventListener('resize', instance.resizeListener);
   });
 
   this.emit('destroy');
@@ -195,11 +192,18 @@ Rollator.prototype._onMouseLeave = function _onMouseLeave(e) {
 
 // Get the offset of a character in a string relative to its parent
 // @returns x-offset
-Rollator.prototype._getRelativeX = (letter, disable) => {
+Rollator.prototype._getRelativeX = function _getRelativeX(letter, disable) {
   const nameW = letter.value.offsetWidth;
-  const clientW = win.innerWidth;
+  const clientW = window.innerWidth;
   const contextX = _getX(letter.context);
   const charX = _getX(letter.char);
+
+  return this._calculateOffsetX(contextX, charX, nameW, clientW, disable);
+};
+
+// Calculates the offset of a character in a string relative to its parent
+// @returns x-offset
+Rollator.prototype._calculateOffsetX = (contextX, charX, nameW, clientW, disable) => {
   const diff = charX - contextX;
 
   let px = diff;
@@ -266,30 +270,29 @@ Rollator.prototype._slice = (str, position) => {
 // Wrap strings in a template
 // @returns [strings]
 Rollator.prototype._wrap = (strObj) => {
-  const $strings = [];
+  const strings = [];
 
   forEach(strObj.strings, (string, i) => {
-    // Horizontal mode needs block-spaces
+    // vertical mode needs block-spaces
     const str = string.split(' ').join('&nbsp;');
     let attr = '';
 
     if (strObj.index === false) {
-      attr = 'data-rltr="nomatch"';
+      attr = ' data-rltr="nomatch"';
     } else {
-      attr = i === strObj.index ? 'data-rltr="match"' : '';
+      attr = i === strObj.index ? ' data-rltr="match"' : '';
     }
 
-    const $string = _toDOM(`<span ${attr}>${str}</span>`);
-    $strings.push($string);
+    strings.push(`<span${attr}>${str}</span>`);
   });
-  return $strings;
+  return strings;
 };
 
 // Render strings into DOM-Node
 // @returns DOM-Node with target
-Rollator.prototype._render = ($node, $strings) => {
-  forEach($strings, ($string) => {
-    $node.appendChild($string);
+Rollator.prototype._render = function _render($node, strings) {
+  forEach(strings, (string) => {
+    $node.appendChild(_toDOM(string));
   });
   return $node.querySelector('[data-rltr="match"]');
 };
@@ -332,7 +335,7 @@ Rollator.prototype._read = function _read($container) {
 
 // Read the text from a node
 // @returns textContent
-Rollator.prototype._readText = (_$node, del = false) => {
+Rollator.prototype._readText = function _readText(_$node, del = false) {
   const $node = _$node;
   const textContent = $node.textContent;
 
@@ -345,7 +348,7 @@ Rollator.prototype._readText = (_$node, del = false) => {
 
 // Apply a transform to a letter
 Rollator.prototype._transform = function _transform(letter) {
-  const offset = this._getRelativeX(letter, this.opts.horizontalOn);
+  const offset = this._getRelativeX(letter, this.opts.verticalOn);
   const $value = letter.value;
 
   if (offset !== null) {
@@ -355,7 +358,7 @@ Rollator.prototype._transform = function _transform(letter) {
       classes(letter.context).add('is-nulled');
     }
   } else {
-    classes(letter.context).add('is-horizontal');
+    classes(letter.context).add('is-vertical');
   }
 };
 
@@ -374,8 +377,8 @@ Rollator.prototype._removeTransform = function _removeTransform(letter) {
     classes($ctx).remove('is-nulled');
   }
 
-  if (classes($ctx).has('is-horizontal')) {
-    classes($ctx).remove('is-horizontal');
+  if (classes($ctx).has('is-vertical')) {
+    classes($ctx).remove('is-vertical');
   }
 };
 

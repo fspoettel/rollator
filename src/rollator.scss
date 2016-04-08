@@ -1,8 +1,8 @@
 //////////////////////////////
-// ROLLATOR v0.2.0
+// ROLLATOR v0.2.1
 //////////////////////////////
 
-$rltr-horizontal-fontsize: 0.5em;
+$rltr-vertical-fontsize: 0.5em;
 
 .rltr {
   position: relative;
@@ -33,11 +33,11 @@ $rltr-horizontal-fontsize: 0.5em;
   visibility: visible;
 }
 
-.rltr-group.is-horizontal > .rltr-group_value {
+.rltr-group.is-vertical > .rltr-group_value {
   display: inline-block;
   top: 100%;
   left: 50%;
-  font-size: $rltr-horizontal-fontsize;
+  font-size: $rltr-vertical-fontsize;
   pointer-events: all;
   transform: translateX(-50%);
   white-space: normal;
@@ -45,7 +45,7 @@ $rltr-horizontal-fontsize: 0.5em;
   writing-mode: vertical-rl;
 }
 
-.rltr-group.is-horizontal.is-active > .rltr-group_anchor {
+.rltr-group.is-vertical.is-active > .rltr-group_anchor {
   visibility: visible;
 }
 
@@ -87,11 +87,11 @@ $rltr-default-opacity-inactive: 0.15;
   font-weight: $rltr-default-fontweight-active;
 }
 
-.rltr--default .rltr-group.is-horizontal.is-active > .rltr-group_anchor {
+.rltr--default .rltr-group.is-vertical.is-active > .rltr-group_anchor {
   visibility: visible;
   opacity: 1;
 }
 
-.rltr--default .rltr-group.is-horizontal.is-active [data-rltr] {
+.rltr--default .rltr-group.is-vertical.is-active [data-rltr] {
   font-weight: $rltr-default-fontweight;
 }
